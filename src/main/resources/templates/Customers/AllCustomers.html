@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>Title</title>
+</head>
+<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+<a th:href="@{/customers/add}">
+    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Add New Customer
+    </button>
+</a>
+
+<body>
+<table class="table table-hover table-dark">
+<thead>
+<tr>
+    <th>ID</th>
+    <th>Name Project</th>
+    <th>Name Company</th>
+    <th>Contract Date</th>
+
+</tr>
+</thead>
+<tbody>
+<tr th:each="customer:${allCustomers}">
+    <td th:text="${customer.id}">
+    <td th:text="${customer.nameProject}">
+    <td th:text="${customer.name}">
+    <td th:text="${customer.contract}">
+    <td>
+        <form th:action="@{/customers/delete/{customerId}(customerId=${customer.id})}" method="post">
+            <button style="background-color: #1a53ff;
+                        border: none;
+                        color: white;
+                        padding: 10px 15px;
+                        text-decoration: delete;
+                        margin: 10px 15px;
+                        cursor: pointer;"
+                    class="btn btn-primary btn-lg">DELETE
+            </button>
+        </form>
+    </td>
+      <td>
+        <form th:action="@{/customers/edit/{customerId}(customerId=${customer.id})}">
+             <button style="background-color: #1a53ff;
+                        border: none;
+                        color: white;
+                        padding: 10px 15px;
+                        text-decoration: delete;
+                        margin: 10px 15px;
+                        cursor: pointer;"
+            class="btn btn-primary btn-lg">UPDATE
+             </button>
+        </form>
+    </td>
+    </td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

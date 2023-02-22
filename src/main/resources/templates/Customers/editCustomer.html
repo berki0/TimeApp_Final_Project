@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+<span th:if="${customer =='Error!'}">Error!</span>
+<span th:unless="${customer =='Error!'}">
+<form action="#" th:action="@{/customers/submit}" method="post" th:object="${customer}">
+            <p> <input type="hidden" th:field="*{id}"></p>
+            <p> Name Project <input  type="text" th:field="*{nameProject}"></p>
+            <p> Name Company <input type="text" th:field="*{name}"></p>
+            <p> Contract Date <input type="date" th:field="*{contract}"></p>
+  <p>
+        <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Save
+        </button>
+    </p>
+</form>
+</span>
+</html>

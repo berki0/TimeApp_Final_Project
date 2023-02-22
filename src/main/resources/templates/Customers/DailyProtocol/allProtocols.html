@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>TEsst</title>
+</head>
+<body>
+<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<a th:href="@{/protocols/add}">
+    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Add New PROTOCOL
+    </button>
+</a>
+<table class="table table-hover table-dark">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Emploee Name </th>
+        <th>Client Company</th>
+        <th> Work Time In Minutes</th>
+        <th>Description</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="protocol:${AllProtocols}">
+        <td th:text="${protocol.id}">
+        <td th:text="${protocol.user}">
+        <td th:text="${protocol.customer}">
+        <td th:text="${protocol.workTime}">
+        <td th:text="${protocol.description}">
+        <td>
+
+        </td>
+        </td>
+    </tr>
+    </tbody>
+
+
+</body>
+</html>

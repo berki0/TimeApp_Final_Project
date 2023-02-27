@@ -3,12 +3,13 @@ package com.example.TimeApp.Entities;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 @Entity
 public class DailyProtocol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -21,6 +22,16 @@ public class DailyProtocol {
     private int workTime;
     @NotNull
     private String description;
+    @NotNull
+    private LocalDate localDate;
+
+    public LocalDate getLocalDate() {
+        return localDate;
+    }
+
+    public void setLocalDate(LocalDate localDate) {
+        this.localDate = localDate;
+    }
 
     public Long getId() {
         return id;
@@ -60,5 +71,15 @@ public class DailyProtocol {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public String toString() {
+        return "DailyProtocol{" +
+                " user=" + user +
+                ", customer=" + customer +
+                ", workTime=" + workTime +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

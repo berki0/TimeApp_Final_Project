@@ -2,6 +2,7 @@ package com.example.TimeApp.Entities;
 
 import com.example.TimeApp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,7 +16,7 @@ public class User {
     private UserRepository userRepository;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
     @NotNull
     private String username;
@@ -24,7 +25,9 @@ public class User {
     @NotNull
     private String password;
     @NotNull
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
+    private boolean enabled;
 
     public boolean isEnabled() {
         return enabled;
@@ -42,8 +45,6 @@ public class User {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-
-    private boolean enabled;
 
     public String getUsername() {
         return username;
@@ -66,14 +67,18 @@ public class User {
     }
 
     public void setPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
+    }
+    public void setPasswordString(String password) {
         this.password = password;
     }
 
-    public String getRole() {
+    public Role getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -83,5 +88,15 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userRepository=" + userRepository +
+                ", username='" + username + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

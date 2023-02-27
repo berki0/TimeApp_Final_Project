@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -13,7 +13,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h3 th:inline="text" align="center" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+
+<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+
 <form th:action="@{/logout}" method="post" align="center">
     <button style="background-color: #1a53ff;
         border: none;
@@ -24,24 +26,30 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
-<h1 align="center">ADD NEW DAILY PROTOCOL</h1>
-<form action="#" method="post" th:action="@{/protocols/submit}" th:object="${protocol}">
+<h1 align="center">ADD NEW USER</h1>
+<form action="#" method="post" th:action="@{/user/submit}" th:object="${user}">
     <p><input type="hidden" th:field="*{id}"></p>
-
-        <select th:field="*{customer}" class="form-control" id="customersList">
-            <option value="N/A">select customer</option>
-            <option
-                    th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}">
-            </option>
-        </select>
-
-    </div>
-    <p>Work Time   <input type="number" th:field="*{workTime}">
-        <span th:if="${#fields.hasErrors('workTime')}" th:errors="*{workTime}"></span>
+    <p>
+        username  <input type="text" th:field="*{username}">
+        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
+    </p>
+    <p>
+        fullName  <input type="text" th:field="*{fullName}">
+        <span th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}"></span>
+    </p>
+    <p>
+        password  <input type="text" th:field="*{password}">
+        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
     </p>
 
-    <p>Description  <input type="text" th:field="*{description}">
-        <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span></p>
+    <div class="form-group">
+        <p>ADMIN OR USER:</p>
+        <input class="form-check-input" type="radio" id="yes" th:field="*{role}" value="ADMIN" required
+               checked>
+        <label for="yes">ADMIN</label>
+        <input class="form-check-input" type="radio" id="no" th:field="*{role}" value="USER" required>
+        <label for="no">USER</label>
+    </div>
     <p>
         <button style="background-color: #1a53ff;
         border: none;
@@ -53,5 +61,7 @@
     </p>
 </form>
 
+
+
 </body>
-</html>
+</html>>

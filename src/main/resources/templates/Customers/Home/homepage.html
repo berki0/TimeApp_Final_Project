@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title >Home Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</head>
+<body background="h.jpg">
+<h3 th:inline="text" align="center" style="color:#f6f6f6;">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post" align="center">
+    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Logout
+    </button>
+</form>
+
+<div class="jumbotron text-center" background="m.jpg">
+    <h1 style="color:#f6f6f6;">Time Tracking Program in Company</h1>
+    <p style="color:#f6f6f6;"> You can manage clients to create daily protocols and create new emploes</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3 style="color:#f6f6f6;">CUSTOMERS</h3>
+
+            <a th:href="@{/customers}">
+                <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">All Customer
+                </button>
+            </a>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/customers/add}">
+                    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Add New Customer
+                    </button>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+            <h3 style="color:#f6f6f6;">PROTOCOLS</h3>
+            <a th:href="@{/protocols}">
+                <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">ALL PROTOCOLS
+                </button>
+            </a>
+            <div sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/protocols/add}">
+                    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Add New PROTOCOL
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <h3 style="color:#f6f6f6;" >EMPLOYEES</h3>
+            <a th:href="@{/user}">
+                <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">ALL EMPLOYEES
+                </button>
+            </a>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/user/add}">
+                    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Add New EMPLOYEE
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

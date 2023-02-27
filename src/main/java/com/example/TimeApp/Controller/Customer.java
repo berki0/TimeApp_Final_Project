@@ -20,7 +20,7 @@ public class Customer {
     @Autowired
     private CustomerRepository customerRepository;
 
-    @GetMapping("/list")
+    @GetMapping()
     public String listAllCustomers(Model model) {
         List<com.example.TimeApp.Entities.Customer> allCustomers = customerRepository.findAll();
         model.addAttribute("allCustomers", allCustomers);
@@ -40,8 +40,9 @@ public class Customer {
         } else {
             customerRepository.save(customer);
         }
-        return new ModelAndView("redirect:/customers/list");
+        return new ModelAndView("redirect:/customers");
     }
+
     @GetMapping("/edit/{customerId}")
     public String editCustomer(@PathVariable(name = "customerId")Long customerId,Model model){
        Optional<com.example.TimeApp.Entities.Customer> optionalCustomer=customerRepository.findById(customerId);
@@ -55,7 +56,7 @@ public class Customer {
     @PostMapping("/delete/{customerId}")
     public ModelAndView deleteActors(@PathVariable(name= "customerId" )Long customerId){
         customerRepository.deleteById(customerId);
-        return new ModelAndView("redirect:/customers/list");
+        return new ModelAndView("redirect:/customers");
     }
 
 }

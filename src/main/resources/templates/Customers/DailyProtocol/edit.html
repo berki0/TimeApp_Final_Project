@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Protocols</title>
+</head>
+<body>
+<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Logout" />
+</form>
+<span th:if="${protocol =='Error!'}">Error!</span>
+<span th:unless="${protocol =='Error!'}">
+<form action="#" th:action="@{/protocols/submit}" method="post" th:object="${protocol}">
+            <p> <input type="hidden" th:field="*{id}"></p>
+            <p> Work Time in Minutes <input  type="number" th:field="*{workTime}"></p>
+            <p> Description <input type="text" th:field="*{description}"></p>
+
+    <select th:field="*{customer}" class="form-control" id="customersList">
+            <option value="N/A">select customer</option>
+            <option
+                    th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}">
+            </option>
+        </select>
+
+    </div>
+  <p>
+        <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Save
+        </button>
+    </p>
+</form>
+</span>
+</body>
+</html>

@@ -3,17 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Add Customer</title>
+    <title >Home Page</title>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h1>ADD NEW CUSTOMER</h1>
-<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
+<h1 align="center">ADD NEW CUSTOMER</h1>
+<h3 th:inline="text" align="center" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post" align="center">
+    <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Logout
+    </button>
 </form>
 <form action="#" method="post" th:action="@{/customers/submit}" th:object="${customer}">
     <p><input type="hidden" th:field="*{id}"></p>
   <p>
-      Name Company  <input type="text" th:field="*{name}">
+      name  <input type="text" th:field="*{name}">
       <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
   </p>
     <p>

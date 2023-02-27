@@ -45,8 +45,6 @@ public class Customer {
     }
 
 
-
-
     public Long getId() {
         return id;
     }
@@ -58,9 +56,9 @@ public class Customer {
     @Override
     public String toString() {
         return "Customer{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", contract=" + contract +
+                ", Name Project='" + nameProject + '\'' +
+                ", Company Name='" + name + '\'' +
+                ", Contract Date='" + contract + '\'' +
                 '}';
     }
 }

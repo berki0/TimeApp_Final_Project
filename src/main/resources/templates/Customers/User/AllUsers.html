@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +8,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>Title</title>
 </head>
-<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<h3 th:inline="text" align="center" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
     <button style="background-color: #1a53ff;
         border: none;
@@ -20,16 +20,16 @@
     </button>
 </form>
 <div sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/customers/add}">
-        <button style="background-color: #1a53ff;
+<a th:href="@{/user/add}">
+    <button style="background-color: #1a53ff;
         border: none;
         color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">Add New Customer
-        </button>
-    </a>
+        cursor: pointer;" class="btn btn-primary btn-lg">Add New User
+    </button>
+</a>
 </div>
 
 <body>
@@ -37,52 +37,50 @@
     <thead>
     <tr>
         <th>ID</th>
-        <th>Name Project</th>
-        <th>Name Company</th>
-        <th>Contract End Date</th>
+        <th>User Name</th>
+        <th>Full Name</th>
+        <th>Role</th>
 
     </tr>
     </thead>
     <tbody>
-    <tr th:each="customer:${allCustomers}">
-        <td th:text="${customer.id}">
-        <td th:text="${customer.nameProject}">
-        <td th:text="${customer.name}">
-        <td th:text="${customer.contract}">
+    <tr th:each="user:${users}">
+        <td th:text="${user.id}">
+        <td th:text="${user.username}">
+        <td th:text="${user.fullName}">
+        <td th:text="${user.role}">
         <td>
-            <div sec:authorize="hasAuthority('ADMIN')">
-                <form th:action="@{/customers/delete/{customerId}(customerId=${customer.id})}" method="post">
-                    <button style="background-color: #1a53ff;
+        <div sec:authorize="hasAuthority('ADMIN')">
+        <form th:action="@{/user/delete/{userId}(userId=${user.id})}" method="post">
+            <button style="background-color: #1a53ff;
                         border: none;
                         color: white;
                         padding: 10px 15px;
                         text-decoration: delete;
                         margin: 10px 15px;
                         cursor: pointer;"
-                            class="btn btn-primary btn-lg">DELETE
-                    </button>
-                </form>
-            </div>
+                    class="btn btn-primary btn-lg">DELETE
+            </button>
+        </form>
+        </div>
         </td>
+        <div sec:authorize="hasAuthority('ADMIN')">
         <td>
-            <div sec:authorize="hasAuthority('ADMIN')">
-                <form th:action="@{/customers/edit/{customerId}(customerId=${customer.id})}">
-                    <button style="background-color: #1a53ff;
+            <form th:action="@{/user/edit/{userId}(userId=${user.id})}">
+                <button style="background-color: #1a53ff;
                         border: none;
                         color: white;
                         padding: 10px 15px;
                         text-decoration: delete;
                         margin: 10px 15px;
                         cursor: pointer;"
-                            class="btn btn-primary btn-lg">UPDATE
-                    </button>
-                </form>
-            </div>
+                        class="btn btn-primary btn-lg">UPDATE
+                </button>
+            </form>
         </td>
-        </td>
+        </div>
     </tr>
     </tbody>
 </table>
-
 </body>
 </html>

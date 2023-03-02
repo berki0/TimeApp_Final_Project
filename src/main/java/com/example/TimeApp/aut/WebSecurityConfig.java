@@ -40,7 +40,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .mvcMatchers("/protocols","/customers","/login","/","").permitAll()
+                .mvcMatchers("css/**","/images/**","/login","/","","/static").permitAll()
                 .mvcMatchers("/protocols/*").hasAnyAuthority("USER")
                 .mvcMatchers("/customers/*").hasAnyAuthority("ADMIN")
                 .mvcMatchers("/user/*").hasAnyAuthority("ADMIN")

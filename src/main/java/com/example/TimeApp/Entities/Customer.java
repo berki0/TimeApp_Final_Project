@@ -2,7 +2,9 @@ package com.example.TimeApp.Entities;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -12,6 +14,17 @@ public class Customer {
     @Column(name = "id")
     private Long id;
 
+
+    @NotBlank
+    @Size(min = 2,max = 50)
+    private String nameProject;
+    @NotBlank
+    @Size(min = 2,max = 50)
+    private String name;
+    @NotBlank
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    private String contract;
+
     public String getNameProject() {
         return nameProject;
     }
@@ -19,14 +32,6 @@ public class Customer {
     public void setNameProject(String nameProject) {
         this.nameProject = nameProject;
     }
-
-    @NotNull
-    private String nameProject;
-    @NotNull
-    private String name;
-    @NotNull
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
-    private String contract;
 
     public String getContract() {
         return contract;
@@ -58,7 +63,7 @@ public class Customer {
         return "Customer{" +
                 ", Name Project='" + nameProject + '\'' +
                 ", Company Name='" + name + '\'' +
-                ", Contract Date='" + contract + '\'' +
+                ", Contract End Date='" + contract + '\'' +
                 '}';
     }
 }

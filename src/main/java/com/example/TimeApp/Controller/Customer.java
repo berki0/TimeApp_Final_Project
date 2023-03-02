@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,9 +35,10 @@ public class Customer {
     }
 
     @PostMapping("/submit")
-    public ModelAndView submitCustomer(com.example.TimeApp.Entities.Customer customer, BindingResult bindingResult) {
+    public ModelAndView submitCustomer(@Valid com.example.TimeApp.Entities.Customer customer, BindingResult bindingResult,Model model) {
         if (bindingResult.hasErrors()) {
-            return new ModelAndView("/customers/add");
+            model.addAttribute("customer",customer);
+            return new ModelAndView("/Customers/addCustomer");
         } else {
             customerRepository.save(customer);
         }

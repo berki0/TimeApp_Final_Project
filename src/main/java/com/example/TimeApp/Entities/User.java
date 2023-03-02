@@ -1,50 +1,43 @@
 package com.example.TimeApp.Entities;
 
+import com.example.TimeApp.Constraint.UserConstraint;
 import com.example.TimeApp.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 
 @Entity
 public class User {
-
-    @Transient
     @Autowired
+    @Transient
     private UserRepository userRepository;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
-    @NotNull
+    @NotBlank
+    @Size(min = 3,max = 10)
+    @UserConstraint
+   // @Column(unique = true)
     private String username;
-    @NotNull
+    @NotBlank
+    @Size(min = 3,max = 50)
     private String fullName;
-    @NotNull
+    @NotBlank
+    @Size(min = 3,max = 100)
     private String password;
-    @NotNull
+
     @Enumerated(EnumType.STRING)
     private Role role;
-    private boolean enabled;
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public UserRepository getUserRepository() {
-        return userRepository;
-    }
-
-    public void setUserRepository(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
 
     public String getUsername() {
         return username;
@@ -67,9 +60,9 @@ public class User {
     }
 
     public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder=new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
+
     public void setPasswordString(String password) {
         this.password = password;
     }
@@ -93,10 +86,12 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userRepository=" + userRepository +
+                ", id=" + id +
                 ", username='" + username + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", role=" + role +
                 '}';
     }
+
+
 }

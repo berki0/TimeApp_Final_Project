@@ -1,21 +1,19 @@
 package com.example.TimeApp.Controller;
 
 import com.example.TimeApp.Entities.Customer;
-import com.example.TimeApp.Entities.User;
 import com.example.TimeApp.Repository.CustomerRepository;
 import com.example.TimeApp.Repository.ProtocolRepository;
 import com.example.TimeApp.Repository.UserRepository;
-import com.example.TimeApp.Service.AuthenticationService;
+import com.example.TimeApp.Service.ProtocolsService;
+import com.example.TimeApp.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -23,14 +21,17 @@ import java.util.Optional;
 @Controller
 @RequestMapping("/protocols")
 public class DailyProtocol {
+
     @Autowired
-    private AuthenticationService authenticationService;
+    private UserService userService;
     @Autowired
     private ProtocolRepository protocolRepository;
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private CustomerRepository customerRepository;
+    @Autowired
+    private ProtocolsService protocolsService;
+    @Autowired
+    private UserRepository userRepository;
 
     @GetMapping()
     public String list(Model model) {
@@ -40,19 +41,19 @@ public class DailyProtocol {
     }
 
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(Model model, com.example.TimeApp.Entities.DailyProtocol dailyProtocol) {
         List<Customer> customer=customerRepository.findAll();
-        List<User> user=userRepository.findAll();
         model.addAttribute("customers",customer);
-        model.addAttribute("protocol", new com.example.TimeApp.Entities.DailyProtocol());
         return "Customers/DailyProtocol/add";
     }
 
     @PostMapping("/submit")
-    public ModelAndView submit(com.example.TimeApp.Entities.DailyProtocol dailyProtocol, BindingResult bindingResult) {
-        dailyProtocol.setUser(authenticationService.returnUserWitchLogin());
+    public ModelAndView submit(@Valid com.example.TimeApp.Entities.DailyProtocol dailyProtocol, BindingResult bindingResult,Model model) {
+        dailyProtocol.setUser(userService.returnUserWitchLogin());
         dailyProtocol.setLocalDate(LocalDate.now());
         if (bindingResult.hasErrors()) {
+            List<Customer> customer=customerRepository.findAll();
+            model.addAttribute("customers" ,customer);
             return new ModelAndView("Customers/DailyProtocol/add");
         } else {
             protocolRepository.save(dailyProtocol);
@@ -76,4 +77,16 @@ public class DailyProtocol {
         }
         return "Customers/DailyProtocol/edit";
     }
+    @GetMapping("/myList")
+    public String listMyDailyProtocols(Model model) {
+       model.addAttribute("AllProtocols",  protocolsService.searchByUsername(userService.returnUserWitchLogin().getUsername()));
+        return "Customers/DailyProtocol/myList";
+    }
+
+    @GetMapping("/seeUserProtocols/{userId}")
+    public String seeUserProtocols(@PathVariable(name = "userId")Long userId,Model model){
+       model.addAttribute( "AllProtocols",protocolsService.searchById(userId));
+        return "Customers/DailyProtocol/allProtocols";
+    }
+
 }

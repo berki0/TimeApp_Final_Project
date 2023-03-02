@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Protocols by Employee </title>
+    <title>Home Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post" align="center">
+    <button style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Logout
+    </button>
+</form>
+<span th:if="${user =='error'}">
+    <h1>please select employee!</h1>
+</span>
+<form action="#" method="post" th:action="@{/user/protocolsByUserSubmit}" th:object="${dailyProtocol}">
+    <select th:field="*{user}" class="form-control" >
+        <option value="">select user</option>
+        <option
+                th:each="user:${users}" th:value="${user.id}" th:text="${user.username}">
+        </option>
+
+    </select>
+        <button  class="btn btn-success btn-lg">Save
+        </button>
+</form>
+</body>
+</html>

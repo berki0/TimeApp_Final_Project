@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  xmlns:security=""
+>
 <head>
-    <title >Home Page</title>
+    <title>Home Page</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
 </head>
-<body background="h.jpg">
+<body>
 <h3 th:inline="text" align="center" style="color:#f6f6f6;">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
-    <button style="background-color: #1a53ff;
+    <button style=";
         border: none;
         color: white;
         padding: 10px 15px;
@@ -23,6 +23,25 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
+
+
+<div sec:authorize="hasAuthority('USER')">
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+        <form th:action="@{/logout}" method="post" align="center">
+            <button style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Logout
+            </button>
+        </form>
+    </div>
+</div>
+
+</security:authorize>
 
 <div class="jumbotron text-center" background="m.jpg">
     <h1 style="color:#f6f6f6;">Time Tracking Program in Company</h1>
@@ -35,24 +54,22 @@
             <h3 style="color:#f6f6f6;">CUSTOMERS</h3>
 
             <a th:href="@{/customers}">
-                <button style="background-color: #1a53ff;
+                <button style="
         border: none;
-        color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">All Customer
+        cursor: pointer;"   class="btn btn-info btn-lg">All Customer
                 </button>
             </a>
             <div sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/customers/add}">
-                    <button style="background-color: #1a53ff;
+                    <button style="
         border: none;
-        color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">Add New Customer
+        cursor: pointer;" class="btn btn-success btn-lg">Add New Customer
                     </button>
                 </a>
             </div>
@@ -61,49 +78,47 @@
         <div class="col-sm-4">
             <h3 style="color:#f6f6f6;">PROTOCOLS</h3>
             <a th:href="@{/protocols}">
-                <button style="background-color: #1a53ff;
+                <button style="
         border: none;
-        color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">ALL PROTOCOLS
+        cursor: pointer;"  class="btn btn-info btn-lg">ALL PROTOCOLS
                 </button>
             </a>
             <div sec:authorize="hasAuthority('USER')">
                 <a th:href="@{/protocols/add}">
-                    <button style="background-color: #1a53ff;
-        border: none;
-        color: white;
-        padding: 10px 15px;
-        text-decoration: none;
-        margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">Add New PROTOCOL
+                    <button class="btn btn-success btn-lg">Add New PROTOCOL
+                    </button>
+                </a>
+            </div>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/user/protocolsByUserAdd}">
+                    <button  class="btn btn-success btn-lg">See Protocols by Employee
                     </button>
                 </a>
             </div>
         </div>
         <div class="col-sm-4">
-            <h3 style="color:#f6f6f6;" >EMPLOYEES</h3>
+            <h3 style="color:#f6f6f6;">EMPLOYEES</h3>
             <a th:href="@{/user}">
-                <button style="background-color: #1a53ff;
+                <button style="
         border: none;
-        color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">ALL EMPLOYEES
+        cursor: pointer;"  class="btn btn-info btn-lg">ALL EMPLOYEES
                 </button>
             </a>
+        </div>
             <div sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/user/add}">
-                    <button style="background-color: #1a53ff;
+                    <button style="
         border: none;
-        color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">Add New EMPLOYEE
+        cursor: pointer;"  class="btn btn-success btn-lg">Add New EMPLOYEE
                     </button>
                 </a>
             </div>

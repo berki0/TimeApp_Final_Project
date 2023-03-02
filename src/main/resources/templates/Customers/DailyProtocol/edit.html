@@ -1,19 +1,26 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Edit Protocols</title>
 </head>
-<body>
-<h3 th:inline="text">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Logout" />
+<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<form th:action="@{/logout}" method="post" align="center">
+    <button style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Logout
+    </button>
 </form>
+
 <span th:if="${protocol =='Error!'}">Error!</span>
 <span th:unless="${protocol =='Error!'}">
 <form action="#" th:action="@{/protocols/submit}" method="post" th:object="${protocol}">
             <p> <input type="hidden" th:field="*{id}"></p>
-            <p> Work Time in Minutes <input  type="number" th:field="*{workTime}"></p>
+            <p> Work Time in Minutes <input type="number" th:field="*{workTime}"></p>
             <p> Description <input type="text" th:field="*{description}"></p>
 
     <select th:field="*{customer}" class="form-control" id="customersList">
@@ -24,7 +31,7 @@
         </select>
 
     </div>
-  <p>
+    <p>
         <button style="background-color: #1a53ff;
         border: none;
         color: white;

@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>Title</title>
+    <title>All Users</title>
 </head>
-<h3 th:inline="text" align="center" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
-    <button style="background-color: #1a53ff;
+    <button style=";
         border: none;
         color: white;
         padding: 10px 15px;
@@ -20,20 +20,20 @@
     </button>
 </form>
 <div sec:authorize="hasAuthority('ADMIN')">
-<a th:href="@{/user/add}">
-    <button style="background-color: #1a53ff;
+    <a th:href="@{/user/add}">
+        <button style="background-color: #1a53ff;
         border: none;
         color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
         cursor: pointer;" class="btn btn-primary btn-lg">Add New User
-    </button>
-</a>
+        </button>
+    </a>
 </div>
 
 <body>
-<table class="table table-hover table-dark">
+<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
     <tr>
         <th>ID</th>
@@ -50,34 +50,31 @@
         <td th:text="${user.fullName}">
         <td th:text="${user.role}">
         <td>
-        <div sec:authorize="hasAuthority('ADMIN')">
-        <form th:action="@{/user/delete/{userId}(userId=${user.id})}" method="post">
-            <button style="background-color: #1a53ff;
-                        border: none;
-                        color: white;
-                        padding: 10px 15px;
-                        text-decoration: delete;
-                        margin: 10px 15px;
-                        cursor: pointer;"
-                    class="btn btn-primary btn-lg">DELETE
-            </button>
-        </form>
-        </div>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/user/delete/{userId}(userId=${user.id})}" method="post">
+                    <button
+                            class="btn btn-danger btn-lg">DELETE
+                    </button>
+                </form>
+            </div>
         </td>
         <div sec:authorize="hasAuthority('ADMIN')">
-        <td>
-            <form th:action="@{/user/edit/{userId}(userId=${user.id})}">
-                <button style="background-color: #1a53ff;
-                        border: none;
-                        color: white;
-                        padding: 10px 15px;
-                        text-decoration: delete;
-                        margin: 10px 15px;
-                        cursor: pointer;"
-                        class="btn btn-primary btn-lg">UPDATE
-                </button>
-            </form>
-        </td>
+            <td>
+                <form th:action="@{/user/edit/{userId}(userId=${user.id})}">
+                    <button
+                            class="btn btn-success btn-lg">UPDATE
+                    </button>
+                </form>
+            </td>
+            <td>
+                <div sec:authorize="hasAuthority('ADMIN')">
+                    <form th:action="@{/protocols/seeUserProtocols/{userId}(userId=${user.id})}">
+                        <button
+                                class="btn btn-info btn-lg"> See this Emploee Protocols
+                        </button>
+                    </form>
+                </div>
+            </td>
         </div>
     </tr>
     </tbody>

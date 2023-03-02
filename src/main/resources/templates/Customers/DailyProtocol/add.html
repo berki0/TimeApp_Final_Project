@@ -1,10 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-
-    <title >Home Page</title>
+    <title>Add Protocols</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -13,9 +11,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<h3 th:inline="text" align="center" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
-    <button style="background-color: #1a53ff;
+    <button style=";
         border: none;
         color: white;
         padding: 10px 15px;
@@ -24,23 +22,25 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
+
 <h1 align="center">ADD NEW DAILY PROTOCOL</h1>
-<form action="#" method="post" th:action="@{/protocols/submit}" th:object="${protocol}">
-    <p><input type="hidden" th:field="*{id}"></p>
+<form action="#" method="post" th:action="@{/protocols/submit}" th:object="${dailyProtocol}">
+    <p> <input type="hidden" th:field="*{id}"></p>
+<p>
+    <select th:field="*{customer}" class="form-control" id="customersList">
+        <option value="">select customer</option>
+        <option
+                th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}">
+        </option>
 
-        <select th:field="*{customer}" class="form-control" id="customersList">
-            <option value="N/A">select customer</option>
-            <option
-                    th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}">
-            </option>
-        </select>
-
-    </div>
-    <p>Work Time   <input type="number" th:field="*{workTime}">
-        <span th:if="${#fields.hasErrors('workTime')}" th:errors="*{workTime}"></span>
+    </select>
+    <span th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></span>
+</p>
+    <p> Work Time <input type="number" th:field="*{workTime}">
+      <span th:if="${#fields.hasErrors('workTime')}" th:errors="*{workTime}"></span>
     </p>
 
-    <p>Description  <input type="text" th:field="*{description}">
+    <p>Description <input type="text" th:field="*{description}">
         <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span></p>
     <p>
         <button style="background-color: #1a53ff;
@@ -49,7 +49,8 @@
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">Save</button>
+        cursor: pointer;" class="btn btn-primary btn-lg">Save
+        </button>
     </p>
 </form>
 

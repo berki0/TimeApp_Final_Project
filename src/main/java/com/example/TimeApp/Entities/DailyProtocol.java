@@ -2,7 +2,9 @@ package com.example.TimeApp.Entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 
 @Entity
@@ -14,15 +16,17 @@ public class DailyProtocol {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "customer_id")
+   @NotNull
     private Customer customer;
-
     @NotNull
+    @Min(1)
     private int workTime;
-    @NotNull
+    @NotBlank
+    @Size(min = 20,max = 550)
     private String description;
-    @NotNull
+
     private LocalDate localDate;
 
     public LocalDate getLocalDate() {
@@ -76,8 +80,8 @@ public class DailyProtocol {
     @Override
     public String toString() {
         return "DailyProtocol{" +
-                " user=" + user +
-                ", customer=" + customer +
+                " user=" + user.getId() +"Username = " +user.getUsername()+"Full Name = " + user.getFullName()+
+                ", customer id =" + customer.getId() +"Company Name = "+customer.getName()+"Project Name = "+customer.getNameProject()+
                 ", workTime=" + workTime +
                 ", description='" + description + '\'' +
                 '}';

@@ -7,12 +7,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>TEsst</title>
+    <title>All Protocols</title>
 </head>
 <body>
-<h3 th:inline="text" align="center" >Welcome [[${#httpServletRequest.remoteUser}]]</h3>
+<h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
-    <button style="background-color: #1a53ff;
+    <button style=";
         border: none;
         color: white;
         padding: 10px 15px;
@@ -21,23 +21,57 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
-<div sec:authorize="hasAuthority('USER')">
-<a th:href="@{/protocols/add}">
-    <button style="background-color: #1a53ff;
+
+<nav class="navbar navbar-expand-sm bg-light" align="center">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <div sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/protocols/add}">
+                    <button style=";
         border: none;
         color: white;
         padding: 10px 15px;
         text-decoration: none;
         margin: 20px 15px;
-        cursor: pointer;" class="btn btn-primary btn-lg">Add New PROTOCOL
-    </button>
-</a>
-</div>
-<table class="table table-hover table-dark">
+        cursor: pointer;" class="btn btn-success btn-lg">Add New PROTOCOL
+                    </button>
+                </a>
+            </div>
+        </li>
+        <li class="btn-text-right">
+            <div sec:authorize="hasAuthority('USER')">
+                <a th:href="@{/protocols/myList}">
+                    <button style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-info btn-lg" align="right">MY PROTOCOLS
+                    </button>
+                </a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <a th:href="@{/protocols}">
+                <button style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-success btn-lg" align="center">ALL PROTOCOLS
+                </button>
+            </a>
+        </li>
+    </ul>
+</nav>
+<br>
+<table id="dtBasicExample" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
     <tr>
         <th>ID</th>
-        <th>Emploee Name </th>
+        <th>Emploee Name</th>
         <th>Client Company Name</th>
         <th> Work Time In Minutes</th>
         <th>Description</th>
@@ -53,33 +87,12 @@
         <td th:text="${protocol.description}">
         <td th:text="${protocol.localDate}">
         <td>
-        <div sec:authorize="hasAuthority('ADMIN')">
-            <form th:action="@{/protocols/delete/{protocolId}(protocolId=${protocol.id})}" method="post">
-                <button style="background-color: #1a53ff;
-                        border: none;
-                        color: white;
-                        padding: 10px 15px;
-                        text-decoration: delete;
-                        margin: 10px 15px;
-                        cursor: pointer;"
-                        class="btn btn-primary btn-lg">DELETE
-                </button>
-            </form>
-        </div>
-        </td>
-        <td>
-            <div sec:authorize="hasAuthority('USER')">
-            <form th:action="@{/protocols/edit/{protocolId}(protocolId=${protocol.id})}">
-                <button style="background-color: #1a53ff;
-                        border: none;
-                        color: white;
-                        padding: 10px 15px;
-                        text-decoration: delete;
-                        margin: 10px 15px;
-                        cursor: pointer;"
-                        class="btn btn-primary btn-lg">UPDATE
-                </button>
-            </form>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <form th:action="@{/protocols/delete/{protocolId}(protocolId=${protocol.id})}" method="post">
+                    <button
+                            class="btn btn-danger btn-lg">DELETE
+                    </button>
+                </form>
             </div>
         </td>
         </td>

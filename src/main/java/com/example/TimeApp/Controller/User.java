@@ -1,5 +1,7 @@
 package com.example.TimeApp.Controller;
 
+import com.example.TimeApp.Entities.Customer;
+import com.example.TimeApp.Entities.DailyProtocol;
 import com.example.TimeApp.Repository.UserRepository;
 import com.example.TimeApp.Service.ProtocolsService;
 import com.example.TimeApp.Service.UserService;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -96,7 +99,8 @@ public class User {
            return "Customers/DailyProtocol/searchByUser";
         }
         List<com.example.TimeApp.Entities.DailyProtocol>AllProtocols= protocolsService.searchById(dailyProtocol.getUser().getId());
-        model.addAttribute("AllProtocols",AllProtocols);
+      List<DailyProtocol> dProtocols = protocolsService.returnTotalWorkTime(AllProtocols,dailyProtocol.getUser().getUsername());
+        model.addAttribute("AllProtocols",dProtocols);
        return "Customers/DailyProtocol/myList";
     }
 

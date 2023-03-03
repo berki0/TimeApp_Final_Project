@@ -87,19 +87,19 @@
     <td th:text="${protocol.description}">
     <td th:text="${protocol.localDate}">
     <td>
-      <div sec:authorize="hasAuthority('ADMIN')">
-        <form th:action="@{/protocols/delete/{protocolId}(protocolId=${protocol.id})}" method="post">
-          <button style="background-color: #1a53ff;
-                        border: none;
-                        color: white;
-                        padding: 10px 15px;
-                        text-decoration: delete;
-                        margin: 10px 15px;
-                        cursor: pointer;"
-                  class="btn btn-danger btn-lg">DELETE
-          </button>
-        </form>
-      </div>
+<!--      <div sec:authorize="hasAuthority('ADMIN')">-->
+<!--        <form th:action="@{/protocols/delete/{protocolId}(protocolId=${protocol.id})}" method="post">-->
+<!--          <button style="background-color: #1a53ff;-->
+<!--                        border: none;-->
+<!--                        color: white;-->
+<!--                        padding: 10px 15px;-->
+<!--                        text-decoration: delete;-->
+<!--                        margin: 10px 15px;-->
+<!--                        cursor: pointer;"-->
+<!--                  class="btn btn-danger btn-lg">DELETE-->
+<!--          </button>-->
+<!--        </form>-->
+<!--      </div>-->
     </td>
     <td>
       <div sec:authorize="hasAuthority('USER')">

@@ -37,6 +37,18 @@
                     </button>
                 </a>
             </div>
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/user/protocolsByUserAdd}">
+                    <button  style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-success btn-lg">See Protocols by Employee
+                    </button>
+                </a>
+            </div>
         </li>
         <li class="btn-text-right">
             <div sec:authorize="hasAuthority('USER')">

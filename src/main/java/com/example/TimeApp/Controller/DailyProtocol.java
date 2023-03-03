@@ -69,8 +69,8 @@ public class DailyProtocol {
     public String editCustomer(@PathVariable(name = "protocolsId")Long protocolsId,Model model){
         Optional<com.example.TimeApp.Entities.DailyProtocol> optionalProtocol=protocolRepository.findById(protocolsId);
         if (optionalProtocol.isPresent()){
-            List<Customer> allCustomers=customerRepository.findAll();
-            model.addAttribute("customers",allCustomers);
+            List<Customer> customer=customerRepository.findAll();
+            model.addAttribute("customers",customer);
             model.addAttribute("protocol",optionalProtocol);
         }else {
             model.addAttribute("protocol", "Error");

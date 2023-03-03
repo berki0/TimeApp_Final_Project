@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"  xmlns:security=""
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security" xmlns:security=""
+      xmlns:background-position="http://www.w3.org/1999/xhtml"
 >
 <head>
     <title>Home Page</title>
@@ -12,9 +13,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+background-position:bottom right;
+
 <h3 th:inline="text" align="center" style="color:#f6f6f6;">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
-<form th:action="@{/logout}" method="post" align="center">
-    <button style=";
+<form th:action="@{/logout}" method="post" align="center" >
+    <button background-position:bottom right; style=";
         border: none;
         color: white;
         padding: 10px 15px;

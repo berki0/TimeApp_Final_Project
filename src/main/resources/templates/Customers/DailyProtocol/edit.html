@@ -1,8 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Protocols</title>
+    <title>Home Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
@@ -24,7 +29,7 @@
             <p> Description <input type="text" th:field="*{description}"></p>
 
     <select th:field="*{customer}" class="form-control" id="customersList">
-            <option value="N/A">select customer</option>
+            <option value="">select customer</option>
             <option
                     th:each="customer:${customers}" th:value="${customer.id}" th:text="${customer.name}">
             </option>

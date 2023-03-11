@@ -45,6 +45,10 @@ public class UserService {
         }
         return userRoleUser;
     }
-
-
+    public boolean verifyPassword(String[] pass){
+        if (pass[0].equalsIgnoreCase(pass[1])){
+            return false;
+        }
+        return true;
+    }
 }

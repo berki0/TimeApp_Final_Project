@@ -1,6 +1,6 @@
 package com.example.TimeApp.Controller;
 
-import com.example.TimeApp.Entities.Customer;
+
 import com.example.TimeApp.Entities.DailyProtocol;
 import com.example.TimeApp.Repository.UserRepository;
 import com.example.TimeApp.Service.ProtocolsService;
@@ -18,8 +18,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 @Controller
@@ -46,7 +46,6 @@ public class User {
 
     @PostMapping("/submit")
     public ModelAndView submit(@Valid com.example.TimeApp.Entities.User user, BindingResult bindingResult,Model model) throws IOException {
-        System.out.println(user.toString());
         if (bindingResult.hasErrors()||userService.uniqueUserName(user.getUsername())) {
             model.addAttribute("user",user);
             return new ModelAndView("Customers/User/addUser");
@@ -62,8 +61,11 @@ public class User {
         if (bindingResult.hasErrors()||userService.uniqueUserName(user.getUsername())) {
             model.addAttribute("user",user);
             return new ModelAndView("Customers/User/editUser");
-        } else
+        } else {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
+        }
         return new ModelAndView("redirect:/user");
     }
 
@@ -92,7 +94,6 @@ public class User {
     }
     @PostMapping("/protocolsByUserSubmit")
     public String protocols( com.example.TimeApp.Entities.DailyProtocol dailyProtocol, Model model){
-
         if (dailyProtocol.getUser()==null){
             List<com.example.TimeApp.Entities.User>user=userService.returnUsersRoleUser();
             model.addAttribute("users",user);
@@ -103,5 +104,26 @@ public class User {
         model.addAttribute("AllProtocols",dProtocols);
        return "Customers/DailyProtocol/myList";
     }
+
+    @GetMapping("/editPassword")
+    public String editPassword(Model model){
+       model.addAttribute( "user",userService.returnUserWitchLogin());
+      return  "Customers/User/editUserPassword";
+    }
+    @PostMapping("/editPasswordSubmit")
+    public ModelAndView EditPasswordSubmit(@Valid com.example.TimeApp.Entities.User user, BindingResult bindingResult,Model model) throws IOException {
+        String[] pass=user.getPassword().split(",");
+        if (bindingResult.hasErrors()||userService.verifyPassword(pass)) {
+            model.addAttribute("user",user);
+            return new ModelAndView("Customers/User/editUserPassword");
+        } else {
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(pass[0]);
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            userRepository.save(user);
+        }
+        return new ModelAndView("redirect:/user");
+    }
+
 
 }

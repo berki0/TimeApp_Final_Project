@@ -49,11 +49,10 @@ public class ProtocolsService {
             }
         }
         DailyProtocol dailyProtocol=new DailyProtocol();
-       dailyProtocol.setUser(userDailyProtocols.get(1).getUser());
-       //dailyProtocol.setCustomer(new Customer());
+       dailyProtocol.setUser(userDailyProtocols.get(0).getUser());
        dailyProtocol.setLocalDate(LocalDate.now());
        dailyProtocol.setWorkTime(sumWorkTime);
-       dailyProtocol.setDescription("This is total work time in minutes from all protocol = "+sumWorkTime +" minutes for Employee username= "+userDailyProtocols.get(1).getUser().getUsername()+" Full Name= "+userDailyProtocols.get(1).getUser().getFullName());
+       dailyProtocol.setDescription("This is total work time in minutes from all protocol = "+sumWorkTime +" minutes for Employee username= "+userDailyProtocols.get(0).getUser().getUsername()+", Full Name= "+userDailyProtocols.get(0).getUser().getFullName());
         userDailyProtocols.add(dailyProtocol);
         return  userDailyProtocols;
     }

@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-background-position:bottom right;
+
 
 <h3 th:inline="text" align="center" style="color:#f6f6f6;">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center" >
@@ -44,11 +44,9 @@ background-position:bottom right;
     </div>
 </div>
 
-</security:authorize>
-
 <div class="jumbotron text-center" background="m.jpg">
     <h1 style="color:#f6f6f6;">Time Tracking Program in Company</h1>
-    <p style="color:#f6f6f6;"> You can manage clients to create daily protocols and create new emploes</p>
+    <p style="color:#f6f6f6;"> You can manage clients to create daily protocols and create new employees</p>
 </div>
 
 <div class="container">
@@ -125,6 +123,18 @@ background-position:bottom right;
                     </button>
                 </a>
             </div>
+        <div>
+            <a th:href="@{/user/editPassword}">
+                <button style="
+        border: none;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;"  class="btn btn-danger btn-lg">Edit Your Password
+                </button>
+            </a>
+        </div>
+
         </div>
     </div>
 </div>

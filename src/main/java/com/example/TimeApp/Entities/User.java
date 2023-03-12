@@ -25,7 +25,7 @@ public class User {
     @NotBlank
     @Size(min = 3,max = 10)
     @UserConstraint
-   // @Column(unique = true)
+
     private String username;
     @NotBlank
     @Size(min = 3,max = 50)
@@ -63,9 +63,6 @@ public class User {
         this.password = password;
     }
 
-    public void setPasswordString(String password) {
-        this.password = password;
-    }
 
     public Role getRole() {
         return role;

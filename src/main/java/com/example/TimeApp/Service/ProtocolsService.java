@@ -42,6 +42,17 @@ public class ProtocolsService {
 
     public List<DailyProtocol> returnTotalWorkTime(List<DailyProtocol> list, String userUserName) {
         List<DailyProtocol> userDailyProtocols = new ArrayList<>();
+
+        if (list.size()==0){
+            DailyProtocol dailyProtocol = new DailyProtocol();
+            dailyProtocol.setId(0L);
+            dailyProtocol.setLocalDate(LocalDate.now());
+            dailyProtocol.setWorkTime(0);
+            dailyProtocol.setDescription("This Employee : "+userUserName+" didn't work. ");
+            userDailyProtocols.add(dailyProtocol);
+            return userDailyProtocols;
+        }
+
         int sumWorkTime = 0;
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i).getUser().getUsername().equalsIgnoreCase(userUserName)) {

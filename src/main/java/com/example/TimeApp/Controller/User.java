@@ -105,21 +105,19 @@ public class User {
     }
 
     @GetMapping("/editPassword")
-    public String editPassword(Model model){
-       model.addAttribute( "user",userService.returnUserWitchLogin());
+    public String editPassword(Password password){
       return  "Customers/User/editUserPassword";
     }
     @PostMapping("/editPasswordSubmit")
-    public ModelAndView EditPasswordSubmit(@Valid com.example.TimeApp.Entities.User user, BindingResult bindingResult,Model model) throws IOException {
-        String[] pass=user.getPassword().split(",");
-        if (bindingResult.hasErrors()||userService.verifyPassword(pass)) {
-            model.addAttribute("user",user);
+    public ModelAndView EditPasswordSubmit(@Valid Password password, BindingResult bindingResult,Model model) throws IOException {
+        if (bindingResult.hasErrors()||userService.verifyPassword(new String[]{password.getPassword(),password.getVerifyPassword()})) {
+            model.addAttribute("password",password);
             return new ModelAndView("Customers/User/editUserPassword");
         } else {
+            com.example.TimeApp.Entities.User userPass=userService.returnUserWitchLogin();
             BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-            user.setPassword(pass[0]);
-            user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
+            userPass.setPassword(passwordEncoder.encode(password.getVerifyPassword()));
+            userRepository.save(userPass);
         }
         return new ModelAndView("redirect:/user");
     }

@@ -26,7 +26,7 @@ public class UserService {
         return  new User() ;
     }
     public boolean uniqueUserName(String username){
-        boolean ok;
+
         List<User>allUsers=userRepository.findAll();
         for (int i = 0; i < allUsers.toArray().length; i++) {
             if (allUsers.get(i).getUsername().equalsIgnoreCase(username)){

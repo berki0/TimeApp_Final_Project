@@ -21,7 +21,11 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
-
+<a th:href="@{/}">
+    <button class="btn btn-info btn-lg">Home Page
+    </button>
+</a>
+<h1 align="center">АLL DAILY PROTOCOLS</h1>
 <nav class="navbar navbar-expand-sm bg-light" align="center">
     <ul class="navbar-nav">
         <li class="nav-item">
@@ -37,6 +41,8 @@
                     </button>
                 </a>
             </div>
+            </li>
+        <li class="nav-item">
             <div sec:authorize="hasAuthority('ADMIN')">
                 <a th:href="@{/user/protocolsByUserAdd}">
                     <button  style=";
@@ -46,6 +52,20 @@
         text-decoration: none;
         margin: 20px 15px;
         cursor: pointer;" class="btn btn-success btn-lg">See Protocols by Employee
+                    </button>
+                </a>
+            </div>
+        </li>
+        <li class="nav-item">
+            <div sec:authorize="hasAuthority('ADMIN')">
+                <a th:href="@{/protocols/searchDate}">
+                    <button  style=";
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-success btn-lg">See Protocols by Date
                     </button>
                 </a>
             </div>

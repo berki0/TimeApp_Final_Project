@@ -20,7 +20,11 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
-
+<a th:href="@{/}">
+    <button class="btn btn-info btn-lg">Home Page
+    </button>
+</a>
+<h1 align="center">EDIT DAILY PROTOCOL</h1>
 <span th:if="${protocol =='Error!'}">Error!</span>
 <span th:unless="${protocol =='Error!'}">
 <form action="#" th:action="@{/protocols/submit}" method="post" th:object="${protocol}">

@@ -2,16 +2,17 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Protocols by Employee </title>
-    <title>Home Page</title>
+    <title>Add Customer</title>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" th:href="@{css/style.css}">
+    <link rel="stylesheet" href="style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
 <h3 th:inline="text" align="center">Welcome [[${#httpServletRequest.remoteUser}]]</h3>
 <form th:action="@{/logout}" method="post" align="center">
     <button style=";
@@ -27,22 +28,23 @@
     <button class="btn btn-info btn-lg">Home Page
     </button>
 </a>
-<span th:if="${user =='error'}">
-    <h1 align="center">CHOOSE A TO SEE ITS PROTOCOLS</h1>
-</span>
-<form action="#" method="post" th:action="@{/user/protocolsByUserSubmit}" th:object="${dailyProtocol}">
-    <select th:field="*{user}" class="form-control" >
-        <option value="">select user</option>
-        <option
-                th:each="user:${users}" th:value="${user.id}" th:text="${user.username}">
-        </option>
-
-    </select>
-        <button  class="btn btn-success btn-lg">Select
-        </button>
+<h1 align="center">SELECT DATE CUSTOMER</h1>
+<form action="#" method="post" th:action="@{/protocols/dateSubmit}" th:object="${searchDate}">
+    <p>
+       Start Date  <input type="date" th:field="*{startDate}">
+        <span th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
+    </p>
+    <p>
+        End Date <input type="date" th:field="*{endDate}">
+        <span th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span>
+    </p>
+    <p>
+        <button style="background-color: #1a53ff;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        text-decoration: none;
+        margin: 20px 15px;
+        cursor: pointer;" class="btn btn-primary btn-lg">Save</button>
+    </p>
 </form>
-<form>
-
-</form>
-</body>
-</html>

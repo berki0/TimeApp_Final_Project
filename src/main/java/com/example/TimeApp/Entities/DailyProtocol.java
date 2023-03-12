@@ -76,14 +76,15 @@ public class DailyProtocol {
     public void setDescription(String description) {
         this.description = description;
     }
-
     @Override
     public String toString() {
         return "DailyProtocol{" +
                 " user=" + user.getId() +"Username = " +user.getUsername()+"Full Name = " + user.getFullName()+
                 ", customer id =" + customer.getId() +"Company Name = "+customer.getName()+"Project Name = "+customer.getNameProject()+
                 ", workTime=" + workTime +
+                ", localDate=" + localDate +
                 ", description='" + description + '\'' +
                 '}';
     }
+
 }

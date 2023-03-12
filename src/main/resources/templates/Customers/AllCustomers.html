@@ -19,7 +19,11 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
     </button>
 </form>
-
+<a th:href="@{/}">
+    <button class="btn btn-info btn-lg">Home Page
+    </button>
+</a>
+<h1 align="center">ALL CUSTOMERS</h1>
 <div sec:authorize="hasAuthority('ADMIN')">
     <a th:href="@{/customers/add}">
         <button  class="btn btn-success btn-lg">Add New Customer

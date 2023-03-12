@@ -21,7 +21,11 @@
         cursor: pointer;" class="btn btn-primary btn-lg">Logout
   </button>
 </form>
-
+<a th:href="@{/}">
+  <button class="btn btn-info btn-lg">Home Page
+  </button>
+</a>
+<h1 align="center">MY DAILY PROTOCOLS</h1>
 <nav class="navbar navbar-expand-sm bg-light" align="center">
   <ul class="navbar-nav">
     <li class="nav-item">
@@ -87,19 +91,13 @@
     <td th:text="${protocol.description}">
     <td th:text="${protocol.localDate}">
     <td>
-<!--      <div sec:authorize="hasAuthority('ADMIN')">-->
-<!--        <form th:action="@{/protocols/delete/{protocolId}(protocolId=${protocol.id})}" method="post">-->
-<!--          <button style="background-color: #1a53ff;-->
-<!--                        border: none;-->
-<!--                        color: white;-->
-<!--                        padding: 10px 15px;-->
-<!--                        text-decoration: delete;-->
-<!--                        margin: 10px 15px;-->
-<!--                        cursor: pointer;"-->
-<!--                  class="btn btn-danger btn-lg">DELETE-->
-<!--          </button>-->
-<!--        </form>-->
-<!--      </div>-->
+      <div sec:authorize="hasAuthority('ADMIN')">
+        <form th:action="@{/protocols/delete/{protocolId}(protocolId=${protocol.id})}" method="post">
+          <button
+                  class="btn btn-danger btn-lg">DELETE
+          </button>
+        </form>
+      </div>
     </td>
     <td>
       <div sec:authorize="hasAuthority('USER')">
